@@ -1,0 +1,67 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  7
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      binary;
+    class       volScalarField;
+    location    "0.006/fluid";
+    object      T;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [ 0 0 0 1 0 0 0 ];
+
+internalField   uniform 700;
+
+boundaryField
+{
+    wall
+    {
+        type            zeroGradient;
+    }
+    inlet
+    {
+        type            fixedValue;			//Dirichlet BC
+        value           uniform 700;			//Temp am Einlass
+    }
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      uniform 700;			//Temp, falls es zu Rückfluss kommt (=Einlass oder Umgebung)
+        value           uniform 700;
+    }	
+
+      /*  heater					//name des patches
+        {
+            type            zeroGradient;		//spezialFall Neumann BC
+        }
+
+        fluid_to_heater
+        {
+            type            compressible::turbulentTemperatureCoupledBaffleMixed;
+            Tnbr            T;
+            kappaMethod     fluidThermo;
+            value           uniform 300;
+    } */
+	cylinder
+        {
+            type            zeroGradient;
+        }
+
+        fluid_to_cylinder
+        {
+            type            compressible::turbulentTemperatureCoupledBaffleMixed;
+            Tnbr            T;
+            kappaMethod     fluidThermo;		//fluidThermo wenn in file von fluid (>> solidThermo)
+            value           uniform 700;
+    }
+}
+
+
+// ************************************************************************* //

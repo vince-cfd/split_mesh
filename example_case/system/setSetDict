@@ -1,0 +1,15 @@
+//erstelle cellSet fluidSet und füge alle Zellen diesem Set hinzu (die box ist deutlich größer als gesamte mesh)
+cellSet fluidSet new boxToCell (-10 -10 -10) (10 10 10)
+
+//ziehe die zellen wieder ab, die zu einem anderen Set gehören (alles was fest ist)
+//cellSet fluidSet delete zoneToCell heater
+cellSet fluidSet delete zoneToCell cylinder
+
+//erstelle die cellZone fluid aus den zellen des sets fluidSet
+cellZoneSet fluid new setToCellZone fluidSet
+
+//lösche das erstellte cellSet wieder, aus übersichtsgründen
+
+
+
+//https://www.youtube.com/watch?v=5PtNS1Nc_u0
